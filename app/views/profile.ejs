@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil - Keycloak Demo</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f2f5; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .container { background: white; padding: 3rem; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.1); max-width: 520px; width: 90%; }
+    h1 { color: #1a1a2e; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; }
+    .field { background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; }
+    .field label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+    .field p { font-size: 1.1rem; color: #333; margin-top: 0.25rem; word-break: break-all; }
+    .actions { text-align: center; margin-top: 1.5rem; }
+    .btn { display: inline-block; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-size: 0.95rem; margin: 0 0.25rem; }
+    .btn-home { background: #4e73df; color: white; }
+    .btn-logout { background: #e74c3c; color: white; }
+    .avatar { width: 80px; height: 80px; background: #4e73df; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; margin: 0 auto 1rem; }
+    .token-box { background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-top: 0.75rem; word-break: break-all; font-family: monospace; font-size: 0.75rem; color: #555; max-height: 120px; overflow-y: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="avatar"><%= user.name ? user.name.charAt(0).toUpperCase() : '?' %></div>
+    <h1>Perfil de Usuario</h1>
+
+    <div class="field">
+      <label>Nombre</label>
+      <p><%= user.name %></p>
+    </div>
+
+    <div class="field">
+      <label>Username</label>
+      <p><%= user.username %></p>
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <p><%= user.email %></p>
+    </div>
+
+    <div class="field">
+      <label>Subject ID</label>
+      <p><%= user.sub %></p>
+    </div>
+
+    <div class="field">
+      <label>Access Token (JWT)</label>
+      <div class="token-box"><%= user.token %></div>
+    </div>
+
+    <div class="actions">
+      <a href="/" class="btn btn-home">Inicio</a>
+      <a href="/logout" class="btn btn-logout">Cerrar Sesion</a>
+    </div>
+  </div>
+</body>
+</html>
