@@ -56,11 +56,11 @@ services:
       - "3100:3100"
     environment:
       KEYCLOAK_URL: http://keycloak:8080
-      KEYCLOAK_EXTERNAL_URL: ${KEYCLOAK_EXTERNAL_URL:-http://localhost:8080}
+      KEYCLOAK_EXTERNAL_URL: http://172.18.48.211:8080
       KEYCLOAK_REALM: demo
       KEYCLOAK_CLIENT_ID: demo-app
       KEYCLOAK_CLIENT_SECRET: demo-app-secret
-      APP_URL: ${APP_URL:-http://localhost:3100}
+      APP_URL: http://172.18.48.211:3100
     depends_on:
       keycloak:
         condition: service_healthy
