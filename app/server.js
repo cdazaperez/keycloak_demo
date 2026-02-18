@@ -32,13 +32,18 @@ async function initializeOidc() {
   const issuerUrl = `${KEYCLOAK_URL}/realms/${REALM}`;
   console.log(`Discovering OIDC config at: ${issuerUrl}`);
 
-  const keycloakIssuer = await Issuer.discover(issuerUrl);
+  const discovered = await Issuer.discover(issuerUrl);
 
-  // The discovery uses the internal Docker URL (http://keycloak:8080) but
-  // tokens arrive with the external URL (http://localhost:8080) as issuer.
-  // Override so the iss claim validation matches the browser-facing URL.
-  keycloakIssuer.metadata.issuer = `${KEYCLOAK_EXTERNAL_URL}/realms/${REALM}`;
-  console.log(`OIDC discovery successful (issuer set to ${keycloakIssuer.metadata.issuer})`);
+  // Discovery uses the internal Docker URL (http://keycloak:8080) but tokens
+  // arrive with the external URL (http://localhost:8080) as issuer.
+  // openid-client freezes metadata, so we must create a new Issuer with
+  // the external issuer while keeping all internal endpoints for server-to-server calls.
+  const externalIssuer = `${KEYCLOAK_EXTERNAL_URL}/realms/${REALM}`;
+  const keycloakIssuer = new Issuer({
+    ...discovered.metadata,
+    issuer: externalIssuer,
+  });
+  console.log(`OIDC discovery successful (issuer: ${keycloakIssuer.metadata.issuer})`);
 
   oidcClient = new keycloakIssuer.Client({
     client_id: CLIENT_ID,
