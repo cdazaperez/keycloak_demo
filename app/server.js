@@ -4,7 +4,7 @@ const { Issuer, generators } = require("openid-client");
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = 3100;
 
 const KEYCLOAK_URL = process.env.KEYCLOAK_URL || "http://keycloak:8080";
 const KEYCLOAK_EXTERNAL_URL =
@@ -12,7 +12,7 @@ const KEYCLOAK_EXTERNAL_URL =
 const REALM = process.env.KEYCLOAK_REALM || "demo";
 const CLIENT_ID = process.env.KEYCLOAK_CLIENT_ID || "demo-app";
 const CLIENT_SECRET = process.env.KEYCLOAK_CLIENT_SECRET || "demo-app-secret";
-const APP_URL = process.env.APP_URL || "http://localhost:3000";
+const APP_URL = process.env.APP_URL || "http://localhost:3100";
 
 let oidcClient;
 

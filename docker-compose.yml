@@ -51,14 +51,14 @@ services:
       dockerfile: Dockerfile
     container_name: demo-app
     ports:
-      - "3000:3000"
+      - "3100:3100"
     environment:
       KEYCLOAK_URL: http://keycloak:8080
       KEYCLOAK_EXTERNAL_URL: http://localhost:8080
       KEYCLOAK_REALM: demo
       KEYCLOAK_CLIENT_ID: demo-app
       KEYCLOAK_CLIENT_SECRET: demo-app-secret
-      APP_URL: http://localhost:3000
+      APP_URL: http://localhost:3100
     depends_on:
       keycloak:
         condition: service_healthy

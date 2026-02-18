@@ -18,7 +18,7 @@ Espera a que todos los servicios esten listos y luego abre:
 
 | Servicio | URL |
 |---|---|
-| Demo App | http://localhost:3000 |
+| Demo App | http://localhost:3100 |
 | Keycloak Admin | http://localhost:8080 |
 
 ## Credenciales
@@ -36,7 +36,7 @@ Espera a que todos los servicios esten listos y luego abre:
 
 ## Como funciona
 
-1. Abre http://localhost:3000 y haz clic en "Iniciar Sesion con Keycloak"
+1. Abre http://localhost:3100 y haz clic en "Iniciar Sesion con Keycloak"
 2. Seras redirigido al login de Keycloak
 3. Ingresa las credenciales de un usuario de prueba
 4. Tras autenticarte, veras tu perfil con los datos del token JWT
