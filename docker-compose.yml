@@ -31,7 +31,6 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_HOSTNAME_STRICT: "false"
       KC_HTTP_ENABLED: "true"
-      KC_SPI_IMPORT_REALM_DIR: /opt/keycloak/data/import
     ports:
       - "8080:8080"
     volumes:
@@ -42,7 +41,7 @@ services:
     networks:
       - keycloak-net
     healthcheck:
-      test: ["CMD-SHELL", "cat < /dev/null > /dev/tcp/localhost/8080"]
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q '\"status\"\\s*:\\s*\"UP\"'"]
       interval: 5s
       timeout: 5s
       retries: 30
