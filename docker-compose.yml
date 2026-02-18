@@ -41,7 +41,7 @@ services:
     networks:
       - keycloak-net
     healthcheck:
-      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q '\"status\"\\s*:\\s*\"UP\"'"]
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET /health/ready HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n' >&3 && cat <&3 | grep -q '\"UP\"'"]
       interval: 5s
       timeout: 5s
       retries: 30
@@ -56,11 +56,11 @@ services:
       - "3100:3100"
     environment:
       KEYCLOAK_URL: http://keycloak:8080
-      KEYCLOAK_EXTERNAL_URL: http://localhost:8080
+      KEYCLOAK_EXTERNAL_URL: ${KEYCLOAK_EXTERNAL_URL:-http://localhost:8080}
       KEYCLOAK_REALM: demo
       KEYCLOAK_CLIENT_ID: demo-app
       KEYCLOAK_CLIENT_SECRET: demo-app-secret
-      APP_URL: http://localhost:3100
+      APP_URL: ${APP_URL:-http://localhost:3100}
     depends_on:
       keycloak:
         condition: service_healthy

@@ -117,28 +117,31 @@ app.get("/logout", (req, res) => {
 });
 
 async function start() {
-  let retries = 10;
+  const maxRetries = 20;
+  let retries = maxRetries;
   while (retries > 0) {
     try {
       await initializeOidc();
+      console.log("Successfully connected to Keycloak");
       break;
     } catch (err) {
       retries--;
       console.log(
-        `Waiting for Keycloak... retries left: ${retries} (${err.message})`
+        `Waiting for Keycloak... retries left: ${retries}/${maxRetries} (${err.message})`
       );
-      await new Promise((r) => setTimeout(r, 5000));
+      await new Promise((r) => setTimeout(r, 3000));
     }
   }
 
   if (retries === 0) {
-    console.error("Could not connect to Keycloak. Exiting.");
+    console.error("Could not connect to Keycloak after all retries. Exiting.");
     process.exit(1);
   }
 
   app.listen(PORT, () => {
     console.log(`Demo app running at http://localhost:${PORT}`);
-    console.log(`Keycloak admin: ${KEYCLOAK_EXTERNAL_URL}`);
+    console.log(`Keycloak (internal): ${KEYCLOAK_URL}`);
+    console.log(`Keycloak (external): ${KEYCLOAK_EXTERNAL_URL}`);
   });
 }
 

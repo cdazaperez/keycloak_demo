@@ -62,10 +62,11 @@
       "publicClient": false,
       "secret": "demo-app-secret",
       "redirectUris": [
-        "http://localhost:3100/*"
+        "http://localhost:3100/*",
+        "http://*:3100/*"
       ],
       "webOrigins": [
-        "http://localhost:3100"
+        "*"
       ],
       "standardFlowEnabled": true,
       "directAccessGrantsEnabled": true,
